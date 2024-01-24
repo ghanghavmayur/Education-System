@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.Mayur.Education.System.Model.Contact;
 import com.Mayur.Education.System.Model.Login;
+import com.Mayur.Education.System.Model.admin_courses_model;
 
-
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,16 +24,16 @@ public class LoginController {
 	
 	@RequestMapping("/")
 	public String login() {
-		return "mayur";//mayur
+		return "login";
 	}	
 	
-	@RequestMapping("/mayur")
+	@RequestMapping("/login")
 	public String loginDB(Login login,Model model) {
 		
 		Session ss = sf.openSession();
-		Login dblogin = ss.get(Login.class, login.getPassword());// pk
+		Login dblogin = ss.get(Login.class, login.getPassword());// primary key
 		
-		String page = "mayur";
+		String page = "login";
 		String msg = null;
 		if (dblogin != null) { 
 			if (login.getUsername().equals(dblogin.getUsername())) {
@@ -49,10 +50,11 @@ public class LoginController {
 	
 	@RequestMapping("createaccountpage")
 	public String createaccountpage() {
-		return "mayurghanghav";
+		return "createaccount";
+		
 	}
 	
-	@RequestMapping("/mayurghanghav")
+	@RequestMapping("/createaccount")
 	public Login createaccountpageSave(Login bb) {
 		Session s=sf.openSession();
 		Transaction t=s.beginTransaction();
@@ -71,11 +73,6 @@ public class LoginController {
 		return "about";
 	}
 	
-	@RequestMapping("coursepage")
-	public String coursepage() {
-		return "course";
-	}
-	
 	@RequestMapping("contactpage")
 	public String contactpage() {
 		return "contact";
@@ -90,9 +87,20 @@ public class LoginController {
 		return contact;
 	}
 	
-	@RequestMapping("/mayurpage")
+	
+	@Autowired
+	private AdminService service;
+	
+	@RequestMapping("coursepage")
+	public String coursepage(Model model) {
+		List<admin_courses_model> listUsers = service.listAll();
+		model.addAttribute("listUsers",listUsers);
+		return "course";
+	}
+	
+	@RequestMapping("/loginpage")
 	public String loginpage() {
-		return "mayur";
+		return "login";
 	}
 	
 	
