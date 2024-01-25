@@ -3,7 +3,7 @@
 1. Clone the repository:
 
     ```bash
-   git clone https://github.com/ghanghavmayur/Spring-Crud-User-Application.git
+   git clone [https://github.com/ghanghavmayur/Spring-Crud-User-Application.git]
 
 3. Navigate to the project directory:
  
